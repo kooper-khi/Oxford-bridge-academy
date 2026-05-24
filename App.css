@@ -1,0 +1,13 @@
+body[data-theme="dark"] {
+  --text: #ffffff;
+}
+
+body[data-theme="light"] {
+  --text: #0b1f3a;
+}
+
+/* make everything follow theme */
+body {
+  margin: 0;
+  color: var(--text);
+}

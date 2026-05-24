@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* DARK */
+body[data-theme="dark"] {
+  background: #040814;
+  color: #ffffff;
+}
+
+/* LIGHT */
+body[data-theme="light"] {
+  background: #f5f3ef;
+  color: #0b1f3a;
+}
+
+/* IMPORTANT: force everything to inherit */
+p, span, small, li, h1, h2, h3, h4, h5 {
+  color: inherit !important;
+}
