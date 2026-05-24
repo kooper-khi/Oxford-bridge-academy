@@ -287,8 +287,7 @@ function Reveal({ children, delay = 0 }) {
 /* ─── NAV ─── */
 function Nav({ active }) {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  useEffect(() => {
+    useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", fn);
     return () => window.removeEventListener("scroll", fn);
