@@ -42,7 +42,8 @@ body[data-theme="dark"] { background: #040814; color: #ffffff; }
 body[data-theme="light"] { background: #f5f3ef; color: #0b1f3a; }
 body[data-theme="light"] #root > div[data-theme="light"] { color: #0b1f3a; }
 
-/* Force normally-white typography to become dark and readable in light mode. */
+/* The original page uses many inline white text styles. Inline normal styles
+   override ordinary CSS, so light mode needs an explicit contrast override. */
 body[data-theme="light"] #root > div[data-theme="light"] p,
 body[data-theme="light"] #root > div[data-theme="light"] h1,
 body[data-theme="light"] #root > div[data-theme="light"] h2,
@@ -53,20 +54,39 @@ body[data-theme="light"] #root > div[data-theme="light"] h6,
 body[data-theme="light"] #root > div[data-theme="light"] span,
 body[data-theme="light"] #root > div[data-theme="light"] label,
 body[data-theme="light"] #root > div[data-theme="light"] li,
-body[data-theme="light"] #root > div[data-theme="light"] a {
-  color: #0b1f3a;
+body[data-theme="light"] #root > div[data-theme="light"] a,
+body[data-theme="light"] #root > div[data-theme="light"] div,
+body[data-theme="light"] #root > div[data-theme="light"] strong,
+body[data-theme="light"] #root > div[data-theme="light"] em,
+body[data-theme="light"] #root > div[data-theme="light"] small {
+  color: #0b1f3a !important;
 }
 
-/* Keep intentionally muted text slightly softer while still readable. */
+/* Preserve intentional non-text visuals and the theme toggle. */
+body[data-theme="light"] #root > div[data-theme="light"] canvas,
+body[data-theme="light"] #root > div[data-theme="light"] svg,
+body[data-theme="light"] #root > div[data-theme="light"] svg * {
+  color: inherit;
+}
+
+body[data-theme="light"] #root > div[data-theme="light"] > button {
+  color: transparent !important;
+}
+
+/* Readable form controls. */
+body[data-theme="light"] input,
+body[data-theme="light"] select,
+body[data-theme="light"] textarea {
+  color: #0b1f3a !important;
+  caret-color: #0b1f3a;
+}
+body[data-theme="light"] option { color: #0b1f3a !important; background: #ffffff; }
+
+/* Keep muted copy softer while maintaining strong contrast. */
 body[data-theme="light"] #root > div[data-theme="light"] small,
 body[data-theme="light"] #root > div[data-theme="light"] .muted,
 body[data-theme="light"] #root > div[data-theme="light"] [class*="muted"] {
-  color: #40536d;
-}
-
-/* Preserve the theme toggle's own visual colors. */
-body[data-theme="light"] #root > div[data-theme="light"] > button {
-  color: transparent !important;
+  color: #40536d !important;
 }
 
 body[data-theme="light"] #root > div[data-theme="light"]::before {
@@ -149,15 +169,6 @@ body[data-theme="light"] #root > div[data-theme="light"] > button::after {
 #root > div[data-theme] > button:hover { transform: translateY(-1px) scale(1.035) !important; }
 #root > div[data-theme] > button:active { transform: scale(.96) !important; }
 #root > div[data-theme] > button:focus-visible { outline: 2px solid #c9a84c !important; outline-offset: 4px !important; }
-
-/* Readable form controls in light mode. */
-body[data-theme="light"] input,
-body[data-theme="light"] select,
-body[data-theme="light"] textarea {
-  color: #0b1f3a !important;
-  caret-color: #0b1f3a;
-}
-body[data-theme="light"] option { color: #0b1f3a; background: #ffffff; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
