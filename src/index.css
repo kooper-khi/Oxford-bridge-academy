@@ -42,6 +42,33 @@ body[data-theme="dark"] { background: #040814; color: #ffffff; }
 body[data-theme="light"] { background: #f5f3ef; color: #0b1f3a; }
 body[data-theme="light"] #root > div[data-theme="light"] { color: #0b1f3a; }
 
+/* Force normally-white typography to become dark and readable in light mode. */
+body[data-theme="light"] #root > div[data-theme="light"] p,
+body[data-theme="light"] #root > div[data-theme="light"] h1,
+body[data-theme="light"] #root > div[data-theme="light"] h2,
+body[data-theme="light"] #root > div[data-theme="light"] h3,
+body[data-theme="light"] #root > div[data-theme="light"] h4,
+body[data-theme="light"] #root > div[data-theme="light"] h5,
+body[data-theme="light"] #root > div[data-theme="light"] h6,
+body[data-theme="light"] #root > div[data-theme="light"] span,
+body[data-theme="light"] #root > div[data-theme="light"] label,
+body[data-theme="light"] #root > div[data-theme="light"] li,
+body[data-theme="light"] #root > div[data-theme="light"] a {
+  color: #0b1f3a;
+}
+
+/* Keep intentionally muted text slightly softer while still readable. */
+body[data-theme="light"] #root > div[data-theme="light"] small,
+body[data-theme="light"] #root > div[data-theme="light"] .muted,
+body[data-theme="light"] #root > div[data-theme="light"] [class*="muted"] {
+  color: #40536d;
+}
+
+/* Preserve the theme toggle's own visual colors. */
+body[data-theme="light"] #root > div[data-theme="light"] > button {
+  color: transparent !important;
+}
+
 body[data-theme="light"] #root > div[data-theme="light"]::before {
   content: "";
   position: fixed;
