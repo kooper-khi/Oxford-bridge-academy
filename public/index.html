@@ -2,78 +2,31 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="https://media.licdn.com/dms/image/v2/D4E0BAQFhZ-J3TQFWQ/company-logo_200_200/B4EZ5WU9ZGK0AE-/0/1779564795752?e=1781136000&v=beta&t=iDS9iqycYscdWcM3TRcn4TndC412tCFqU36SVUfnsPw" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#040814" />
-    <meta name="description" content="Oxford Bridge Academy — academic excellence, personalised learning, and university preparation." />
-    <link rel="apple-touch-icon" href="https://media.licdn.com/dms/image/v2/D4E0BAQFhZ-J3TQFWQ/company-logo_200_200/B4EZ5WU9ZGK0AE-/0/1779564795752?e=1781136000&v=beta&t=iDS9iqycYscdWcM3TRcn4TndC412tCFqU36SVUfnsPw" />
+    <meta name="theme-color" content="#06101f" />
+    <meta name="description" content="Oxford Bridge Academy — ambitious learning, thoughtful people and a future worth building." />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f2eb" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#06101f" />
+    <title>Oxford Bridge Academy — Ambition becomes ability</title>
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>Oxford Bridge Academy</title>
     <style>
-      html, body { min-height: 100%; }
-      body { overflow-x: hidden; }
-      @media (max-width: 900px) {
-        #root nav > div:nth-child(2) { -webkit-overflow-scrolling: touch; }
-      }
-      body[data-theme="light"] #root section#about > div[style*="linear-gradient(160deg"] {
-        background: linear-gradient(160deg, #f7f4ec 0%, #eef1f5 45%, #e5eaf0 72%, #f7f4ec 100%) !important;
-      }
-      body[data-theme="light"] #root section#about > div[style*="radial-gradient(ellipse at center"] {
-        background: radial-gradient(ellipse at center, rgba(255,255,255,.10) 0%, rgba(245,243,239,.38) 100%) !important;
-      }
-      body[data-theme="light"] #root section#about button[style*="rgba(255,255,255"] {
-        color: #0b1f3a !important;
-        border-color: rgba(11,31,58,.25) !important;
-        background: rgba(255,255,255,.28) !important;
-      }
-      body[data-theme="light"] #root section#about svg rect[fill="#0d1f3e"],
-      body[data-theme="light"] #root section#about svg rect[fill="#0a1830"],
-      body[data-theme="light"] #root section#about svg rect[fill="#081526"] {
-        fill: #dbe2e9 !important;
-      }
+      html,body{min-height:100%;margin:0}body{overflow-x:hidden;background:#06101f}
+      html[data-theme="light"],body[data-theme="light"]{background:#f5f2eb}
     </style>
+    <script>
+      (function(){
+        try{
+          var t=localStorage.getItem('oba-theme');
+          if(t==='light'||t==='dark'){
+            document.documentElement.dataset.theme=t;
+            document.body.dataset.theme=t;
+          }
+        }catch(e){}
+      })();
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script>
-      /* Keep the visitor's theme between visits without changing the React app's state model. */
-      (function () {
-        var saved = localStorage.getItem('oba-theme');
-        if (saved === 'light' || saved === 'dark') {
-          document.body.setAttribute('data-theme', saved);
-          document.documentElement.style.background = saved === 'light' ? '#f5f3ef' : '#040814';
-        }
-
-        var observer = new MutationObserver(function () {
-          var root = document.querySelector('#root > div[data-theme]');
-          var toggle = root && root.querySelector(':scope > button');
-          if (!toggle) return;
-
-          if (!toggle.dataset.themeEnhanced) {
-            toggle.dataset.themeEnhanced = 'true';
-            toggle.setAttribute('aria-label', 'Toggle dark and light mode');
-            toggle.setAttribute('title', 'Toggle dark and light mode');
-            toggle.addEventListener('click', function () {
-              window.setTimeout(function () {
-                var next = root.getAttribute('data-theme') || document.body.getAttribute('data-theme') || 'dark';
-                localStorage.setItem('oba-theme', next);
-                document.documentElement.style.background = next === 'light' ? '#f5f3ef' : '#040814';
-                var meta = document.querySelector('meta[name="theme-color"]');
-                if (meta) meta.setAttribute('content', next === 'light' ? '#f5f3ef' : '#040814');
-              }, 0);
-            });
-          }
-
-          /* React starts in dark mode, so sync the saved preference once the button exists. */
-          if (saved && root.getAttribute('data-theme') !== saved && !root.dataset.themeRestored) {
-            root.dataset.themeRestored = 'true';
-            toggle.click();
-          }
-        });
-
-        observer.observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-theme'] });
-      })();
-    </script>
   </body>
 </html>
