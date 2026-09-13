@@ -9,6 +9,29 @@
     <link rel="apple-touch-icon" href="https://media.licdn.com/dms/image/v2/D4E0BAQFhZ-J3TQFWQ/company-logo_200_200/B4EZ5WU9ZGK0AE-/0/1779564795752?e=1781136000&v=beta&t=iDS9iqycYscdWcM3TRcn4TndC412tCFqU36SVUfnsPw" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Oxford Bridge Academy</title>
+    <style>
+      html, body { min-height: 100%; }
+      body { overflow-x: hidden; }
+      @media (max-width: 900px) {
+        #root nav > div:nth-child(2) { -webkit-overflow-scrolling: touch; }
+      }
+      body[data-theme="light"] #root section#about > div[style*="linear-gradient(160deg"] {
+        background: linear-gradient(160deg, #f7f4ec 0%, #eef1f5 45%, #e5eaf0 72%, #f7f4ec 100%) !important;
+      }
+      body[data-theme="light"] #root section#about > div[style*="radial-gradient(ellipse at center"] {
+        background: radial-gradient(ellipse at center, rgba(255,255,255,.10) 0%, rgba(245,243,239,.38) 100%) !important;
+      }
+      body[data-theme="light"] #root section#about button[style*="rgba(255,255,255"] {
+        color: #0b1f3a !important;
+        border-color: rgba(11,31,58,.25) !important;
+        background: rgba(255,255,255,.28) !important;
+      }
+      body[data-theme="light"] #root section#about svg rect[fill="#0d1f3e"],
+      body[data-theme="light"] #root section#about svg rect[fill="#0a1830"],
+      body[data-theme="light"] #root section#about svg rect[fill="#081526"] {
+        fill: #dbe2e9 !important;
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
