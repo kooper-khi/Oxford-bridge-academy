@@ -8,10 +8,20 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f2eb" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#06101f" />
     <title>Oxford Bridge Academy — Ambition becomes ability</title>
+    <link rel="icon" href="https://media.licdn.com/dms/image/v2/D4E0BAQFhZ-J3TQFWQ/company-logo_200_200/B4EZ5WU9ZGK0AE-/0/1779564795752?e=1781136000&v=beta&t=iDS9iqycYscdWcM3TRcn4TndC412tCFqU36SVUfnsPw" />
+    <link rel="apple-touch-icon" href="https://media.licdn.com/dms/image/v2/D4E0BAQFhZ-J3TQFWQ/company-logo_200_200/B4EZ5WU9ZGK0AE-/0/1779564795752?e=1781136000&v=beta&t=iDS9iqycYscdWcM3TRcn4TndC412tCFqU36SVUfnsPw" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <style>
       html,body{min-height:100%;margin:0}body{overflow-x:hidden;background:#06101f}
       html[data-theme="light"],body[data-theme="light"]{background:#f5f2eb}
+
+      /* Restore the original Oxford Bridge Academy mark used before the redesign. */
+      .oba-legacy-logo{
+        width:42px;height:42px;display:block;flex:0 0 42px;object-fit:cover;border-radius:11px;
+        margin-right:12px;box-shadow:0 8px 24px rgba(0,0,0,.18);background:#fff;
+      }
+      .oba-legacy-logo-link{display:inline-flex;align-items:center;text-decoration:none;flex-shrink:0}
+      @media(max-width:720px){.oba-legacy-logo{width:36px;height:36px;flex-basis:36px;border-radius:9px;margin-right:9px}}
     </style>
     <script>
       (function(){
@@ -22,6 +32,31 @@
             document.body.dataset.theme=t;
           }
         }catch(e){}
+      })();
+
+      /* The previous site used this exact academy mark. Put it back into the
+         navigation without changing the React layout or introducing a second logo. */
+      (function(){
+        var logoUrl='https://media.licdn.com/dms/image/v2/D4E0BAQFhZ-J3TQFWQ/company-logo_200_200/B4EZ5WU9ZGK0AE-/0/1779564795752?e=1781136000&v=beta&t=iDS9iqycYscdWcM3TRcn4TndC412tCFqU36SVUfnsPw';
+        function mountLogo(){
+          var nav=document.querySelector('#root nav');
+          if(!nav || nav.querySelector('.oba-legacy-logo')) return !!nav;
+          var host=nav.firstElementChild;
+          if(!host) return false;
+          var link=document.createElement('a');
+          link.className='oba-legacy-logo-link';
+          link.href='#top';
+          link.setAttribute('aria-label','Oxford Bridge Academy home');
+          var img=document.createElement('img');
+          img.className='oba-legacy-logo';
+          img.src=logoUrl;
+          img.alt='Oxford Bridge Academy logo';
+          link.appendChild(img);
+          host.insertBefore(link,host.firstChild);
+          return true;
+        }
+        var tries=0;
+        var timer=setInterval(function(){if(mountLogo()||++tries>80)clearInterval(timer)},100);
       })();
     </script>
   </head>
