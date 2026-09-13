@@ -2,42 +2,55 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="https://media.licdn.com/dms/image/v2/D4E0BAQFhZ-J3TQFWwQ/company-logo_200_200/B4EZ5WU9ZGK0AE-/0/1779564795752?e=1781136000&v=beta&t=iDS9iqycYscdWcM3TRcn4TndC412tCFqU36SVUfnsPw" />
+    <link rel="icon" href="https://media.licdn.com/dms/image/v2/D4E0BAQFhZ-J3TQFWQ/company-logo_200_200/B4EZ5WU9ZGK0AE-/0/1779564795752?e=1781136000&v=beta&t=iDS9iqycYscdWcM3TRcn4TndC412tCFqU36SVUfnsPw" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="https://media.licdn.com/dms/image/v2/D4E0BAQFhZ-J3TQFWwQ/company-logo_200_200/B4EZ5WU9ZGK0AE-/0/1779564795752?e=1781136000&v=beta&t=iDS9iqycYscdWcM3TRcn4TndC412tCFqU36SVUfnsPw" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
+    <meta name="theme-color" content="#040814" />
+    <meta name="description" content="Oxford Bridge Academy — academic excellence, personalised learning, and university preparation." />
+    <link rel="apple-touch-icon" href="https://media.licdn.com/dms/image/v2/D4E0BAQFhZ-J3TQFWQ/company-logo_200_200/B4EZ5WU9ZGK0AE-/0/1779564795752?e=1781136000&v=beta&t=iDS9iqycYscdWcM3TRcn4TndC412tCFqU36SVUfnsPw" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>Oxford Bridge Acadmey</title>
+    <title>Oxford Bridge Academy</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <script>
+      /* Keep the visitor's theme between visits without changing the React app's state model. */
+      (function () {
+        var saved = localStorage.getItem('oba-theme');
+        if (saved === 'light' || saved === 'dark') {
+          document.body.setAttribute('data-theme', saved);
+          document.documentElement.style.background = saved === 'light' ? '#f5f3ef' : '#040814';
+        }
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+        var observer = new MutationObserver(function () {
+          var root = document.querySelector('#root > div[data-theme]');
+          var toggle = root && root.querySelector(':scope > button');
+          if (!toggle) return;
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+          if (!toggle.dataset.themeEnhanced) {
+            toggle.dataset.themeEnhanced = 'true';
+            toggle.setAttribute('aria-label', 'Toggle dark and light mode');
+            toggle.setAttribute('title', 'Toggle dark and light mode');
+            toggle.addEventListener('click', function () {
+              window.setTimeout(function () {
+                var next = root.getAttribute('data-theme') || document.body.getAttribute('data-theme') || 'dark';
+                localStorage.setItem('oba-theme', next);
+                document.documentElement.style.background = next === 'light' ? '#f5f3ef' : '#040814';
+                var meta = document.querySelector('meta[name="theme-color"]');
+                if (meta) meta.setAttribute('content', next === 'light' ? '#f5f3ef' : '#040814');
+              }, 0);
+            });
+          }
+
+          /* React starts in dark mode, so sync the saved preference once the button exists. */
+          if (saved && root.getAttribute('data-theme') !== saved && !root.dataset.themeRestored) {
+            root.dataset.themeRestored = 'true';
+            toggle.click();
+          }
+        });
+
+        observer.observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-theme'] });
+      })();
+    </script>
   </body>
 </html>
